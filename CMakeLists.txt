@@ -10,4 +10,14 @@ if(${myblaslib})
   message(FATAL_ERROR "no BLAS lib, sorry")
 endif()
 
-target_link_libraries(${PROJECT_NAME} blas)
+find_library(mylapacklib lapack DOC "LAPACK library" REQUIRED)
+
+if(${mylapacklib})
+  message(FATAL_ERROR "no BLAS lib, sorry")
+endif()
+
+target_link_libraries(${PROJECT_NAME}
+  blas
+  lapack
+)
+
