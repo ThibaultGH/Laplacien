@@ -4,6 +4,12 @@ project(Laplacien)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
+add_subdirectory(mesh)
+
+target_link_directories(${PROJECT_NAME} PRIVATE mesh)
+
+target_include_directories(${PROJECT_NAME} PUBLIC mesh)
+
 find_library(myblaslib gslcblas0 DOC "GNU Scientific Library (GSL) -- blas library package" REQUIRED)
 
 if(${myblaslib})
@@ -17,6 +23,7 @@ if(${mylapacklib})
 endif()
 
 target_link_libraries(${PROJECT_NAME}
+  mesh
   blas
   lapack
 )
