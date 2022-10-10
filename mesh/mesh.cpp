@@ -31,27 +31,39 @@ void read_mesh_file(int &nb_nodes, int &nb_elements, float* &nodes, int* element
 	for (int i0 = 0; i0 < nb_nodes; ++i0) {
 	  getline(my_file,line_my_file);
 
-	  for (int i1 = 2; i1 < line_my_file.size(); ++i1) {
+	  for (int i1 = 0; i1 < line_my_file.size(); ++i1) {
 
-	    if (line_my_file[i1] == space or line_my_file[i1] == '\n') {
-	      	      
-	      nodes[i0*3+count_spaces] = stof(char_line);
+	    if (line_my_file[i1] == space) { // if (line_myfile[i1] in "0123456789.") do
 
-	      ++count_spaces;
+	      // cout << char_line << endl;
+	      if (count_spaces == 0) {
+		++count_spaces;
+		char_line.clear();
+	      }
+	      else {
+		nodes[i0*3+count_spaces-1] = stof(char_line);
+		
+		// cout << nodes[i0*3+count_spaces-1] << endl;
+
+		++count_spaces;
 	      
-	      char_line.clear();
+		char_line.clear();
+	      
+	      }
+	      
+
 	    }
 	    else {
 	      temp_str.clear();
 	      temp_str += line_my_file[i1];
 	      char_line.append(temp_str);
-	      count_spaces = 0;
-	      
+	      	      
 	    }
+	    
 	    
 	  
 	  }
-	  
+	  count_spaces = 0;
 	  // cout << endl;
 
 	  // cout << line_my_file << endl;
