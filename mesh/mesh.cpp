@@ -20,9 +20,17 @@ void read_mesh_file(int &nb_nodes, int &nb_elements, float* &nodes, int* element
 
     while (getline(my_file,line_my_file)) {
 
-
+      /*
+	This while loop works this way :
+	     _ if a line "$Nodes" or "$Elements" is found, the next line gets us the number of nodes and elements respectively.
+	     _ Once we got them, we will read the lines of the file exactly this number of times.
+	     _ For the nodes : 
+	           _ The first number we encounter is the number of the nodes that we discard, the next three are the coordinates that we but into an array nodes[nb_nodes*3].
+	       For the elements :
+	           _ The three integer number we get are the number of the nodes forming a triangle, starting from 1 we need to do -1 to respect indexation in C++ starting at 0.
+       */
       
-      if (found_nb_nodes) { // We will enter once here after we've crossed the expression "$Nodes" and load all the nodes in the array nodes.	
+      if (found_nb_nodes) {
 	nb_nodes = stoi(line_my_file);
 	found_nb_nodes = false;
 
@@ -50,36 +58,15 @@ void read_mesh_file(int &nb_nodes, int &nb_elements, float* &nodes, int* element
 		char_line.clear();
 	      
 	      }
-	      
-
 	    }
 	    else {
 	      temp_str.clear();
 	      temp_str += line_my_file[i1];
 	      char_line.append(temp_str);
-	      	      
-	    }
-	    
-	    
-	  
+	    }	  
 	  }
 	  count_spaces = 0;
-	  // cout << endl;
-
-	  // cout << line_my_file << endl;
-	  
-	  // line_nodes = strtok((char*) line_my_file," ");
-
-	  // for (int i1 = 0; i1 < 3; ++i1) {
-	  //   cout << line_my_file[i1+1] <<" ";
-	    
-	    // nodes[i0*nb_nodes+i1] = stoi(line_nodes[i1+1]);
-	  // }
-	  // cout << endl;
-
-	  
 	}
-
       }
       else if (found_nb_elements) { // We will enter once here after we've crossed the expression "$Elements" and load all the elements in the array elements.
 	nb_elements = stoi(line_my_file);
@@ -87,19 +74,36 @@ void read_mesh_file(int &nb_nodes, int &nb_elements, float* &nodes, int* element
 
 	elements = (int* ) malloc(sizeof(int)*nb_elements*3);
 	
-	// for (int i0 = 0; i0 < nb_elements; ++i0) {
-	//   getline(my_file,line_my_file);
+	for (int i3 = 0; i3 < nb_elements; ++i3) {
+	  getline(my_file,line_my_file);
 
-	//   line_elements = strtok(line_my_file," ");
+	  cout << line_my_file << endl;
 
-	//   for (int i1 = 0; i1 < 3; ++i1) {
-	//     elements[i0*nb_elements+i1] = stoi(line_nodes[i1+1]);
-	//   }
+	  for (int i4 = 0; i4 < line_my_file.size(); ++i4) {
 
-	  
-	// }
+	    if (line_my_file[i4] == space) {
 
-      }      
+	      elements[i3*3+count_spaces] = stoi(char_line);
+
+	      ++count_spaces;
+
+	      char_line.clear();
+	      
+	    }
+	    else {
+	      temp_str.clear();
+	      temp_str += line_my_file[i4];
+	      char_line.append(temp_str);
+	    }
+	    
+	  }
+	  count_spaces = 0;
+
+	}
+
+      }
+
+      
       if (line_my_file == "$Nodes") {
 	found_nb_nodes = true;
       }

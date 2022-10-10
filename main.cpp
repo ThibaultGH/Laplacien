@@ -27,13 +27,13 @@ int main(int argc, char *argv[])
 
   read_mesh_file(nb_nodes, nb_elements, nodes, elements, filename);
 
-  for (int i0 = 0; i0 < nb_nodes; ++i0) {
-    for (int i1 = 0; i1 < 3; ++i1) {
-      cout << nodes[i0*3+i1] << " ";
-    }
-    cout << endl;
+  // for (int i0 = 0; i0 < nb_elements; ++i0) {
+  //   for (int i1 = 0; i1 < 3; ++i1) {
+  //     cout << elements[i0*3+i1] << " ";
+  //   }
+  //   cout << endl;
 
-  }
+  // }
 
 
 
