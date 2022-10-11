@@ -1,14 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include "mesh.hpp"
 
 using namespace std;
 
-//Let's turn this into a proper class with its own constructor
+mesh::mesh(char* filename){
 
-void read_mesh_file(int &nb_corners, int* &corners, int &nb_border_edges, int* &border_edges, int &nb_nodes, int &nb_elements, float* &nodes, int* elements, const char* filename){
-  
+  // Construct a flux to read the mesh file in :
   ifstream my_file(filename);
+  
+  // Some local variables :
   string line_my_file;
   string char_line;
   string temp_str;
@@ -18,7 +20,8 @@ void read_mesh_file(int &nb_corners, int* &corners, int &nb_border_edges, int* &
   int* save_spaces_pos;
   bool found_nb_nodes = false;
   bool found_nb_elements = false;
-  
+
+  // Start reading the mesh file
   if (my_file.is_open()) {
     // my_file >> nb_nodes;
 
@@ -78,57 +81,37 @@ void read_mesh_file(int &nb_corners, int* &corners, int &nb_border_edges, int* &
 
 	elements = (int* ) malloc(sizeof(int)*nb_elements*3);
 	
-	for (int i3 = 0; i3 < nb_elements; ++i3) {
-	  getline(my_file,line_my_file);
+	// for (int i3 = 0; i3 < nb_elements; ++i3) {
+	//   getline(my_file,line_my_file);
 
-	  line_size = line_my_file.size();
+	//   line_size = line_my_file.size();
 	  
-	  // cout << line_my_file[line_size-1]<< " " << line_my_file[line_size-3] << endl;
+	//   // cout << line_my_file[line_size-1]<< " " << line_my_file[line_size-3] << endl;
 
-	  for (int i4 = line_size-1; i4 > -1; --i4) {
+	//   for (int i4 = line_size-1; i4 > -1; --i4) {
 
-	    if (line_my_file[i4] == space) {
+	//     if (line_my_file[i4] == space) {
 
-	      cout << save_spaces_pos << endl;
+	//       cout << save_spaces_pos << endl;
 
-	      // save_spaces_pos+count_spaces = i4;
-	      // ++count_spaces;
+	//       // save_spaces_pos+count_spaces = i4;
+	//       // ++count_spaces;
 	      
-	    }
-	  }
+	//     }
+	//   }
 
-	  for (int i5 = 0; i5 < 3; ++i5) {
-	    for (int i6 = *(save_spaces_pos+3-i5); i6 < *(save_spaces_pos+3-i5-1); ++i6) {
-	      temp_str.clear();
-	      temp_str =+ line_my_file[i6];
-	      char_line.append(temp_str);
-	    }
+	//   for (int i5 = 0; i5 < 3; ++i5) {
+	//     for (int i6 = *(save_spaces_pos+3-i5); i6 < *(save_spaces_pos+3-i5-1); ++i6) {
+	//       temp_str.clear();
+	//       temp_str =+ line_my_file[i6];
+	//       char_line.append(temp_str);
+	//     }
 
-	  }
+	//   }
 
+	//   count_spaces = 0;
 
-
-	  // for (int i4 = 0; i4 < line_my_file.size(); ++i4) {
-
-	  //   if (line_my_file[i4] == space) {
-
-	  //     elements[i3*3+count_spaces] = stoi(char_line);
-
-	  //     ++count_spaces;
-
-	  //     char_line.clear();
-	      
-	  //   }
-	  //   else {
-	  //     temp_str.clear();
-	  //     temp_str += line_my_file[i4];
-	  //     char_line.append(temp_str);
-	  //   }
-	    
-	  // }
-	  count_spaces = 0;
-
-	}
+	// }
 
       }
 
@@ -139,20 +122,25 @@ void read_mesh_file(int &nb_corners, int* &corners, int &nb_border_edges, int* &
       else if (line_my_file == "$Elements"){
 	found_nb_elements = true;
       }
-
       
-
-
-
-      
-    }
-    
+    } 
   }
   else {
     cout << "ERROR : file " << filename << " NOT open !" << endl;
   }
 
+  // deallocate
+  delete[] save_spaces_pos;
 
-
-
+  
 }
+
+// mesh::~mesh(){
+
+//   delete[] corners;
+//   delete[] border_edges;
+//   delete[] nodes;
+//   delete[] elements;
+
+
+// }
