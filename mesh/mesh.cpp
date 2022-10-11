@@ -21,6 +21,8 @@ mesh::mesh(char* filename){
   bool found_nb_nodes = false;
   bool found_nb_elements = false;
 
+  save_spaces_pos = (int *) malloc(sizeof(int)*50);
+
   // Start reading the mesh file
   if (my_file.is_open()) {
     // my_file >> nb_nodes;
