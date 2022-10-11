@@ -4,14 +4,16 @@
 
 using namespace std;
 
-void read_mesh_file(int &nb_nodes, int &nb_elements, float* &nodes, int* elements, const char* filename){
+void read_mesh_file(int &nb_corners, int* &corners, int &nb_border_edges, int* &border_edges, int &nb_nodes, int &nb_elements, float* &nodes, int* elements, const char* filename){
   
   ifstream my_file(filename);
   string line_my_file;
   string char_line;
   string temp_str;
   int count_spaces = 0;
+  int line_size;
   char space = ' ';
+  int* save_spaces_pos;
   bool found_nb_nodes = false;
   bool found_nb_elements = false;
   
@@ -77,26 +79,51 @@ void read_mesh_file(int &nb_nodes, int &nb_elements, float* &nodes, int* element
 	for (int i3 = 0; i3 < nb_elements; ++i3) {
 	  getline(my_file,line_my_file);
 
-	  cout << line_my_file << endl;
+	  line_size = line_my_file.size();
+	  
+	  // cout << line_my_file[line_size-1]<< " " << line_my_file[line_size-3] << endl;
 
-	  for (int i4 = 0; i4 < line_my_file.size(); ++i4) {
+	  for (int i4 = line_size-1; i4 > -1; --i4) {
 
 	    if (line_my_file[i4] == space) {
 
-	      elements[i3*3+count_spaces] = stoi(char_line);
+	      cout << save_spaces_pos << endl;
 
-	      ++count_spaces;
-
-	      char_line.clear();
+	      // save_spaces_pos+count_spaces = i4;
+	      // ++count_spaces;
 	      
 	    }
-	    else {
+	  }
+
+	  for (int i5 = 0; i5 < 3; ++i5) {
+	    for (int i6 = *(save_spaces_pos+3-i5); i6 < *(save_spaces_pos+3-i5-1); ++i6) {
 	      temp_str.clear();
-	      temp_str += line_my_file[i4];
+	      temp_str =+ line_my_file[i6];
 	      char_line.append(temp_str);
 	    }
-	    
+
 	  }
+
+
+
+	  // for (int i4 = 0; i4 < line_my_file.size(); ++i4) {
+
+	  //   if (line_my_file[i4] == space) {
+
+	  //     elements[i3*3+count_spaces] = stoi(char_line);
+
+	  //     ++count_spaces;
+
+	  //     char_line.clear();
+	      
+	  //   }
+	  //   else {
+	  //     temp_str.clear();
+	  //     temp_str += line_my_file[i4];
+	  //     char_line.append(temp_str);
+	  //   }
+	    
+	  // }
 	  count_spaces = 0;
 
 	}
