@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
   char filename[100] = "/home/tcimic/Projects/Laplacien/mesh/square.msh";
 
   read_mesh_file(nb_corners, corners, nb_border_edges, border_edges, nb_nodes, nb_elements, nodes, elements, filename);
+  	
 /* 
    for (int i0 = 0; i0 < nb_elements; ++i0) {
     for (int i1 = 0; i1 < 3; ++i1) {
@@ -42,10 +43,10 @@ int main(int argc, char *argv[])
 
   // deallocate
 
-  delete corners;
-  delete border_edges;
-  delete nodes;
-  delete elements;  
+  // delete[] corners;
+  // delete[] border_edges;
+  // delete[] nodes;
+  // delete[] elements;  
 
   return 0;
 }
