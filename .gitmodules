@@ -1,0 +1,6 @@
+[submodule "FileManagerCPP"]
+	path = FileManagerCPP
+	url = git@github.com:ThibaultGH/FileManagerCPP.git
+[submodule "FileManagerC-"]
+	path = FileManagerC-
+	url = git@github.com:ThibaultGH/FileManagerC-.git

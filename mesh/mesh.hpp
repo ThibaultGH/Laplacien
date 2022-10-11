@@ -23,7 +23,7 @@ public:
   mesh(char* filename);
 
   //Destructor of an item of the class mesh
-  // ~mesh();
+  ~mesh();
 
 
 

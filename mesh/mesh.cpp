@@ -137,12 +137,15 @@ mesh::mesh(char* filename){
   
 }
 
-// mesh::~mesh(){
+mesh::~mesh(){
 
-//   delete[] corners;
-//   delete[] border_edges;
-//   delete[] nodes;
-//   delete[] elements;
+  // cout << "~mesh() called !" << endl;
+
+  // delete[] corners;
+  // delete[] border_edges;
+  
+  delete[] nodes;
+  delete[] elements;
 
 
-// }
+}
