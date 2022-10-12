@@ -4,7 +4,7 @@ project(Laplacien)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-add_subdirectory(mesh)
+add_subdirectory(mesh FileManagerC-)
 
 target_link_directories(${PROJECT_NAME} PRIVATE mesh)
 
