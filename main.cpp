@@ -1,7 +1,13 @@
+// Include from the standard C++ library
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <string>
+
+// My own includes
 #include <gsl/gsl_cblas.h>
 #include <mesh.hpp>
+#include <FileManagerCPP.hpp>
 
 using namespace std;
 
@@ -30,6 +36,20 @@ int main(int argc, char *argv[])
   char filename[100] = "/home/tcimic/Projects/Laplacien/mesh/square.msh";
 
   mesh Th(filename);
+
+  string full_str = "/home/tcimic/Projects/Laplacien/mesh/square.msh";
+
+  char separator = '/';
+
+  vector<string> out;
+
+  out = split(full_str,separator);
+
+  for (int i0 = 0; i0 < 6; ++i0) {
+    cout << out[i0] << endl;
+  }
+
+  
   
   // read_mesh_file(nb_corners, corners, nb_border_edges, border_edges, nb_nodes, nb_elements, nodes, elements, filename);
 

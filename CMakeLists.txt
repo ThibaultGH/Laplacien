@@ -4,11 +4,19 @@ project(Laplacien)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-add_subdirectory(mesh FileManagerC-)
+add_subdirectory(mesh FileManagerCPP)
 
-target_link_directories(${PROJECT_NAME} PRIVATE mesh)
+target_link_directories(${PROJECT_NAME}
+  PRIVATE mesh
+  PRIVATE FileManagerCPP
+)
 
-target_include_directories(${PROJECT_NAME} PUBLIC mesh)
+target_include_directories(${PROJECT_NAME}
+  PUBLIC mesh
+  PUBLIC FileManagerCPP
+)
+
+add_library(FileManagerCPP FileManagerCPP/FileManagerCPP.cpp)
 
 find_library(myblaslib gslcblas0 DOC "GNU Scientific Library (GSL) -- blas library package" REQUIRED)
 
@@ -26,5 +34,6 @@ target_link_libraries(${PROJECT_NAME}
   mesh
   blas
   lapack
+  FileManagerCPP
 )
 
