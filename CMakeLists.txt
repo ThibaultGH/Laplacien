@@ -20,14 +20,14 @@ add_library(FileManagerCPP FileManagerCPP/FileManagerCPP.cpp)
 
 find_library(myblaslib gslcblas0 DOC "GNU Scientific Library (GSL) -- blas library package" REQUIRED)
 
-if(${myblaslib})
+if(NOT ${myblaslib})
   message(FATAL_ERROR "no BLAS lib, sorry")
 endif()
 
 find_library(mylapacklib lapack DOC "LAPACK library" REQUIRED)
 
-if(${mylapacklib})
-  message(FATAL_ERROR "no BLAS lib, sorry")
+if(NOT ${mylapacklib})
+  message(FATAL_ERROR "no LAPACK lib, sorry")
 endif()
 
 target_link_libraries(${PROJECT_NAME}
