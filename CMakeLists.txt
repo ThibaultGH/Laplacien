@@ -4,6 +4,12 @@ project(Laplacien)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
+add_subdirectory(GMSHmesh)
+
+# target_link_directories(${PROJECT_NAME} PRIVATE GMSHmesh)
+
+# target_include_directories(${PROJECT_NAME} PUBLIC GMSHmesh)
+
 find_library(myblaslib gslcblas DOC "GNU Scientific Library (GSL) -- blas library package" REQUIRED)
 
 if(${myblaslib} STREQUAL "${myblaslib}-NOTFOUND")
@@ -21,4 +27,8 @@ target_link_libraries(${PROJECT_NAME}
   blas
   lapack
 )
+
+# add_library(
+#   GMSHmesh GMSHmesh/mesh.cpp
+# )
 
