@@ -6,6 +6,7 @@
 
 // My own includes
 #include <gsl/gsl_cblas.h>
+#include <mesh.hpp>
 
 
 using namespace std;
@@ -23,18 +24,11 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-  // int nb_corners = 0;
-  // int* corners;
-  // int nb_border_edges;
-  // int* border_edges;
-  // int nb_nodes;
-  // int nb_elements;
-  // float* nodes;
-  // int* elements;
+  char filename[100] = "/home/tcimic/Projects/Laplacien/GMSHmesh/mesh/square.msh";
 
-  // char filename[100] = "/home/tcimic/Projects/Laplacien/mesh/square.msh";
+  mesh Th(filename);
 
-  // mesh Th(filename);
+  cout << Th.NbTriangle() << endl;
   
   
   // read_mesh_file(nb_corners, corners, nb_border_edges, border_edges, nb_nodes, nb_elements, nodes, elements, filename);
