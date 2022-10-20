@@ -1,0 +1,3 @@
+[submodule "GMSHmesh"]
+	path = GMSHmesh
+	url = git@github.com:ThibaultGH/GMSHmesh.git
